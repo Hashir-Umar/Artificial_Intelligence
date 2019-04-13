@@ -1,4 +1,4 @@
-A,D
-A:B,C
-B:D
-C:E,F
+A,E
+A:B,C,D
+B:E,F
+E:G
