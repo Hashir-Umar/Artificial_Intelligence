@@ -1,3 +1,8 @@
+#Hashir Umar
+#L1F16BSCS0263
+
+import pathlib
+
 queue = []
 actualPath = []
 exploredPath = []
@@ -6,6 +11,7 @@ def expand(tree, node):
 	
 	#Do not expand leaf node 
 	if node not in tree:
+		# keep track of all visited nodes
 		exploredPath.append(node)
 		actualPath.pop(0)
 		return
@@ -16,6 +22,7 @@ def expand(tree, node):
 	
 	for child in chainNodeChild:
 		queue.append(child)
+		#Attaching child nodes to its parent node
 		actualPath.append(chainNode+child)
 	
 	exploredPath.append(node)
@@ -26,7 +33,7 @@ def algo(tree, node, queue, rNode, gNode):
 	while len(queue) != 0:
 		dequeuedNode = queue.pop(0)
 		if dequeuedNode  == gNode:
-			print("Goal has found")
+			print("Goal has been found")
 			print("Traversed Path: ", exploredPath)
 			print("Actual Path: ", actualPath[0])
 			return
@@ -35,24 +42,29 @@ def algo(tree, node, queue, rNode, gNode):
 		else:
 			actualPath.pop(0)
 	print("Goal does not exist")
-		
-inputFile = open("test.txt","r")
-fileText = inputFile.read().splitlines()
-inputFile.close()
 
-rootNode = fileText[0][0]
-goalNode = fileText[0][2]
+#checking file existence
+if pathlib.Path('test.txt').exists():
+	#Reading file
+	inputFile = open("test.txt","r")	
+	fileText = inputFile.read().splitlines()
+	inputFile.close()
 
-tree = {}
-fileText.pop(0)
-for i in fileText:
-	temp = i.split(':')
-	tree[temp[0]] = temp[1].split(',')
+	rootNode = fileText[0][0]	
+	goalNode = fileText[0][2]
 
-print("Root Node: ", rootNode)
-print("Goal Node: ", goalNode)
-print("Tree: ", tree)
+	tree = {}
+	fileText.pop(0)
+	for i in fileText:
+		temp = i.split(':')
+		tree[temp[0]] = temp[1].split(',')
 
-algo(tree, rootNode, queue, rootNode, goalNode)
+	print("Root Node: ", rootNode)
+	print("Goal Node: ", goalNode)
+	print("Tree: ", tree)
+
+	algo(tree, rootNode, queue, rootNode, goalNode)
+else:
+	print("test.txt does not exist")
 
 
